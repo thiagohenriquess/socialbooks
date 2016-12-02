@@ -36,6 +36,9 @@ public class Livro {
 	@JsonInclude(Include.NON_NULL)
 	private String autor;
 	
+	@JsonInclude(Include.NON_NULL)
+	private String editora;
+	
 	public Long getId() {
 		return id;
 	}
@@ -71,6 +74,12 @@ public class Livro {
 	}
 	public void setAutor(String autor) {
 		this.autor = autor;
+	}
+	public String getEditora() {
+		return editora;
+	}
+	public void setEditora(String editora) {
+		this.editora = editora;
 	}
 	
 	
