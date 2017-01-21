@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.algaworks.socialbooks.domain.Comentario;
 import com.algaworks.socialbooks.domain.Livro;
+import com.algaworks.socialbooks.services.ComentariosService;
 import com.algaworks.socialbooks.services.LivrosService;
 
 @RestController
@@ -23,6 +24,9 @@ public class LivrosResources {
 
 	@Autowired
 	private LivrosService livrosService;
+
+	@Autowired
+	private ComentariosService comentariosService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Livro>> listar() {
@@ -59,17 +63,21 @@ public class LivrosResources {
 
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value = "/{id}/comentario", method = RequestMethod.POST)
-	public ResponseEntity<?> adcionarComentario(	@PathVariable("id") Long livroId, 
-									@RequestBody Comentario comentario){
-		
-		livrosService.salvarComentario(livroId, comentario);
-		
+
+	@RequestMapping(value = "/{id}/comentarios", method = RequestMethod.POST)
+	public ResponseEntity<?> adcionarComentario(@PathVariable("id") Long livroId, @RequestBody Comentario comentario) {
+
+		comentariosService.salvarComentario(livroId, comentario);
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-		
-		return ResponseEntity.created(uri).build(); 
-		
-	} 
+
+		return ResponseEntity.created(uri).build();
+	}
+
+	@RequestMapping(value = "/{id}/comentarios", method = RequestMethod.GET)
+	public ResponseEntity<?> listarComentarios(@PathVariable("id") Long livroId) {
+
+		return ResponseEntity.status(HttpStatus.OK).body(comentariosService.listarComentarios(livroId));
+	}
 
 }
