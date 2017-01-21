@@ -1,12 +1,10 @@
 package com.algaworks.socialbooks.services;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.algaworks.socialbooks.domain.Livro;
 import com.algaworks.socialbooks.repository.LivrosRepository;
