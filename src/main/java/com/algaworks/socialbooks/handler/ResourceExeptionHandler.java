@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.algaworks.socialbooks.domain.DetalheErro;
+import com.algaworks.socialbooks.services.exceptions.AutorEncontradoException;
 import com.algaworks.socialbooks.services.exceptions.AutorNaoEncontradoException;
 import com.algaworks.socialbooks.services.exceptions.LivroNaoEncontradoException;
 
@@ -28,6 +29,7 @@ public class ResourceExeptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(detalheErro);		
 	}
 	
+	@ExceptionHandler(AutorNaoEncontradoException.class)
 	public ResponseEntity<DetalheErro> hadlerAutorNaoEncontradoException(AutorNaoEncontradoException e, HttpServletRequest request){
 		
 		DetalheErro detalheErro = new DetalheErro();
@@ -40,5 +42,20 @@ public class ResourceExeptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(detalheErro);
 		
 	}
+	
+	@ExceptionHandler(AutorEncontradoException.class)
+	public ResponseEntity<DetalheErro> hadlerAutorNaoEncontradoException(AutorEncontradoException e, HttpServletRequest request){
+		
+		DetalheErro detalheErro = new DetalheErro();
+		
+		detalheErro.setStatus(409l);
+		detalheErro.setTitulo("Autor já existe");
+		detalheErro.setUrl("thiagohenriq@gmail.com");
+		detalheErro.setTimeStamp(System.currentTimeMillis());
+		
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(detalheErro);
+		
+	}
+	
 	
 }

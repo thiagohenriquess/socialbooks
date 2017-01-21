@@ -33,6 +33,8 @@ public class AutoresService {
 			}
 		}	
 		
+		autor.setId(null);
+
 		return autoresRepository.save(autor);
 	}
 
